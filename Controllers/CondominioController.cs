@@ -58,8 +58,8 @@ public class CondominioController : ControllerBase
         var entity = await _db.condominio.FindAsync(id);
         if (entity is null) return NotFound();
         _db.condominio.Remove(entity);
-    await _db.SaveChangesAsync();
-    return NoContent();
+        await _db.SaveChangesAsync();
+        return NoContent();
     }
 }
 }
