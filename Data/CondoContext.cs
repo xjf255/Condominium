@@ -12,20 +12,20 @@ public partial class CondoContext : DbContext
     public CondoContext(DbContextOptions<CondoContext> options)
         : base(options) { }
 
-    public DbSet<condominio> condominios { get; set; }
+    public DbSet<condominio> Condominios { get; set; }
+    public DbSet<propiedad> Propiedades { get; set; }
+    public DbSet<propietario> Propietarios { get; set; }
+    public DbSet<recibo_detalle> ReciboDetalles { get; set; }
+    public DbSet<recibo_encabezado> ReciboEncabezados { get; set; }
+    public DbSet<rubro> Rubros { get; set; }
 
-    public DbSet<propiedad> propiedads { get; set; }
-
-    public DbSet<propietario> propietarios { get; set; }
-
-    public DbSet<recibo_detalle> recibo_detalles { get; set; }
-
-    public DbSet<recibo_encabezado> recibo_encabezados { get; set; }
-
-    public DbSet<rubro> rubros { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
-        optionsBuilder.UseSqlServer("Name=ConnectionStrings:CondoDb");
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        if (!optionsBuilder.IsCOnfigured)
+        {
+            optionsBuilder.UseSqlServer("Name=ConnectionStrings:CondoDb");
+        }
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

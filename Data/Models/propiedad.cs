@@ -15,7 +15,8 @@ public partial class propiedad
 
     public condominio id_condominioNavigation { get; set; } = null!;
 
-    public ICollection<recibo_encabezado> recibo_encabezados { get; set; } = new List<recibo_encabezado>();
+    public ICollection<recibo_encabezado> recibo_encabezados { get; set; } =
+        new List<recibo_encabezado>();
 
     public ICollection<propietario> dpi_propietarios { get; set; } = new List<propietario>();
 }

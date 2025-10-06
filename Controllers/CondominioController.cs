@@ -10,7 +10,7 @@ public class CondominioController : ControllerBase
 
     // GET: api/condominios?search=Alpha&page=1&pageSize=20
     [HttpGet]
-    public async Task<ActionResult> GetAll([FromQuery] string? search, [FromQuery] int page = 1, [FromQuery] int pageSize = 50)
+    public async Task<ActionResult> GetAll([FromQuery] string? search, [FromQuery] int page = 1, [FromQuery] int pageSize = 10)
     {
         var query = _db.condominio.AsQueryable();
         if (!string.IsNullOrWhiteSpace(search))

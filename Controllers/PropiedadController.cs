@@ -7,6 +7,9 @@ namespace condominium.Controllers;
     private readonly CondoContext _db;
 
     // [HttpGet]
-    public async 
+    public async Task<ActionResult> GetAll([FromQuery] string? search, [FromQuery] int page = 1, [FromQuery] int pageSize = 50)
+    {
+      var query = _db.propiedes.
+    }
   }
 }
