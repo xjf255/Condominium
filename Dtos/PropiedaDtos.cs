@@ -1,6 +1,6 @@
-namespace Condominium.Dtos;
+namespace Condominium.Dtos
 {
-  public record PropiedadCreateDto(string direccion, string? avatar, string id_condominio);
-  public record PropiedadUpdateDto(string direccion, string? avatar, string id_condominio);
-  public record PropiedadReadDto(string id, string direccion, string? avatar, string id_condominio, CondominioReadDto condominio);
+  public record PropiedadCreateDto(string Direccion, string? Avatar, string IdCondominio);
+  public record PropiedadUpdateDto(string Direccion, string? Avatar, string IdCondominio);
+  public record PropiedadReadDto(string Id, string Direccion, string? Avatar, string IdCondominio, CondominioReadDto Condominio);
 }

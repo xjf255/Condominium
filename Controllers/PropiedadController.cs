@@ -9,7 +9,7 @@ namespace condominium.Controllers;
     // [HttpGet]
     public async Task<ActionResult> GetAll([FromQuery] string? search, [FromQuery] int page = 1, [FromQuery] int pageSize = 50)
     {
-      var query = _db.propiedes.
+      var query = _d
     }
   }
 }

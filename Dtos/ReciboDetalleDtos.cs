@@ -1,6 +1,6 @@
-namespace Condominium.Dtos;
+namespace Condominium.Dtos
 {
-  public record reciboDetalleCreateDto(string num_recibo, string concepto, decimal monto);
-  public record reciboDetalleUpdateDto(string num_recibo, string concepto, decimal monto);
-  public record ReciboDetalleReadDto(string num_recibo, string concepto, decimal monto, RubroReadDto rubro, ReciboEncabezadoReadDto recibo);
+  public record ReciboDetalleCreateDto(string NumRecibo, string Concepto, decimal Monto);
+  public record ReciboDetalleUpdateDto(string NumRecibo, string Concepto, decimal Monto);
+  public record ReciboDetalleReadDto(string NumRecibo, string Concepto, decimal Monto, RubroReadDto Rubro, ReciboEncabezadoReadDto Recibo);
 }

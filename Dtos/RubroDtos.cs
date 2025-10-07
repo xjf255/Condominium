@@ -1,6 +1,6 @@
-namespace Condominium.Dtos;
+namespace Condominium.Dtos
 {
-  public record RubroCreateDto(string nombre, string descripcion);
-  public record RubroUpdateDto(string nombre, string descripcion);
-  public record RubroReadDto(int id, string nombre, string descripcion, ICollection<reciboDetalleReadDto> recibo_detalles);
+  public record RubroCreateDto(string Nombre, string Descripcion);
+  public record RubroUpdateDto(string Nombre, string Descripcion);
+  public record RubroReadDto(int Id, string Nombre, string Descripcion, ICollection<ReciboDetalleReadDto> ReciboDetalles);
 }

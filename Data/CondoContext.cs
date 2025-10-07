@@ -12,16 +12,16 @@ public partial class CondoContext : DbContext
     public CondoContext(DbContextOptions<CondoContext> options)
         : base(options) { }
 
-    public DbSet<condominio> Condominios { get; set; }
-    public DbSet<propiedad> Propiedades { get; set; }
-    public DbSet<propietario> Propietarios { get; set; }
-    public DbSet<recibo_detalle> ReciboDetalles { get; set; }
-    public DbSet<recibo_encabezado> ReciboEncabezados { get; set; }
-    public DbSet<rubro> Rubros { get; set; }
+    public DbSet<Condominio> Condominios { get; set; }
+    public DbSet<Propiedad> Propiedades { get; set; }
+    public DbSet<Propietario> Propietarios { get; set; }
+    public DbSet<ReciboDetalle> ReciboDetalles { get; set; }
+    public DbSet<ReciboEncabezado> ReciboEncabezados { get; set; }
+    public DbSet<Rubro> Rubros { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        if (!optionsBuilder.IsCOnfigured)
+        if (!optionsBuilder.IsConfigured)
         {
             optionsBuilder.UseSqlServer("Name=ConnectionStrings:CondoDb");
         }
@@ -29,167 +29,167 @@ public partial class CondoContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<condominio>(entity =>
+        modelBuilder.Entity<Condominio>(entity =>
         {
-            entity.HasKey(e => e.id).HasName("PK__condomin__3213E83F48834C57");
+            entity.HasKey(e => e.Id).HasName("PK__condomin__3213E83F48834C57");
 
             entity.ToTable("condominio");
 
-            entity.HasIndex(e => e.direccion, "UQ__condomin__636D81ABC870A734").IsUnique();
+            entity.HasIndex(e => e.Direccion, "UQ__condomin__636D81ABC870A734").IsUnique();
 
-            entity.HasIndex(e => e.nombre, "UQ__condomin__72AFBCC6F343611B").IsUnique();
+            entity.HasIndex(e => e.Nombre, "UQ__condomin__72AFBCC6F343611B").IsUnique();
 
             entity
-                .Property(e => e.id)
+                .Property(e => e.Id)
                 .HasMaxLength(5)
                 .IsUnicode(false)
                 .HasDefaultValueSql("('C-'+format(NEXT VALUE FOR [seq_condominio],'000'))");
-            entity.Property(e => e.direccion).HasMaxLength(100).IsUnicode(false);
-            entity.Property(e => e.image_condominio).HasMaxLength(500);
-            entity.Property(e => e.nombre).HasMaxLength(100).IsUnicode(false);
+            entity.Property(e => e.Direccion).HasMaxLength(100).IsUnicode(false);
+            entity.Property(e => e.ImageCondominio).HasMaxLength(500);
+            entity.Property(e => e.Nombre).HasMaxLength(100).IsUnicode(false);
         });
 
-        modelBuilder.Entity<propiedad>(entity =>
+        modelBuilder.Entity<Propiedad>(entity =>
         {
-            entity.HasKey(e => e.id).HasName("PK__propieda__3213E83F604C3451");
+            entity.HasKey(e => e.Id).HasName("PK__propieda__3213E83F604C3451");
 
-            entity.ToTable("propiedad");
+            entity.ToTable("Propiedad");
 
-            entity.HasIndex(e => e.avatar, "UQ__propieda__22FCF9849B7BB869").IsUnique();
+            entity.HasIndex(e => e.Avatar, "UQ__propieda__22FCF9849B7BB869").IsUnique();
 
             entity
-                .Property(e => e.id)
+                .Property(e => e.Id)
                 .HasMaxLength(5)
                 .IsUnicode(false)
-                .HasDefaultValueSql("('P-'+format(NEXT VALUE FOR [seq_propiedad],'000'))");
-            entity.Property(e => e.avatar).HasMaxLength(500);
-            entity.Property(e => e.direccion).HasMaxLength(100).IsUnicode(false);
-            entity.Property(e => e.id_condominio).HasMaxLength(5).IsUnicode(false);
+                .HasDefaultValueSql("('P-'+format(NEXT VALUE FOR [seq_Propiedad],'000'))");
+            entity.Property(e => e.Avatar).HasMaxLength(500);
+            entity.Property(e => e.Direccion).HasMaxLength(100).IsUnicode(false);
+            entity.Property(e => e.IdCondominio).HasMaxLength(5).IsUnicode(false);
 
             entity
-                .HasOne(d => d.id_condominioNavigation)
-                .WithMany(p => p.propiedads)
-                .HasForeignKey(d => d.id_condominio)
+                .HasOne(d => d.IdCondominioNavigation)
+                .WithMany(p => p.Propiedads)
+                .HasForeignKey(d => d.IdCondominio)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__propiedad__id_co__3D5E1FD2");
+                .HasConstraintName("FK__Propiedad__Id_co__3D5E1FD2");
 
             entity
-                .HasMany(d => d.dpi_propietarios)
-                .WithMany(p => p.id_propiedads)
+                .HasMany(d => d.DpiPropietarios)
+                .WithMany(p => p.IdPropiedades)
                 .UsingEntity<Dictionary<string, object>>(
-                    "propiedad_propietario",
+                    "Propiedad_Propietario",
                     r =>
-                        r.HasOne<propietario>()
+                        r.HasOne<Propietario>()
                             .WithMany()
-                            .HasForeignKey("dpi_propietario")
+                            .HasForeignKey("Dpi_Propietario")
                             .OnDelete(DeleteBehavior.ClientSetNull)
-                            .HasConstraintName("FK__propiedad__dpi_p__46E78A0C"),
+                            .HasConstraintName("FK__Propiedad__Dpi_p__46E78A0C"),
                     l =>
-                        l.HasOne<propiedad>()
+                        l.HasOne<Propiedad>()
                             .WithMany()
-                            .HasForeignKey("id_propiedad")
+                            .HasForeignKey("Id_Propiedad")
                             .OnDelete(DeleteBehavior.ClientSetNull)
-                            .HasConstraintName("FK__propiedad__id_pr__45F365D3"),
+                            .HasConstraintName("FK__Propiedad__Id_pr__45F365D3"),
                     j =>
                     {
-                        j.HasKey("id_propiedad", "dpi_propietario")
-                            .HasName("pk_propiedad_propietario");
-                        j.ToTable("propiedad_propietario");
-                        j.IndexerProperty<string>("id_propiedad").HasMaxLength(5).IsUnicode(false);
-                        j.IndexerProperty<string>("dpi_propietario")
+                        j.HasKey("Id_Propiedad", "Dpi_Propietario")
+                            .HasName("pk_Propiedad_Propietario");
+                        j.ToTable("Propiedad_Propietario");
+                        j.IndexerProperty<string>("Id_Propiedad").HasMaxLength(5).IsUnicode(false);
+                        j.IndexerProperty<string>("Dpi_Propietario")
                             .HasMaxLength(13)
                             .IsUnicode(false);
                     }
                 );
         });
 
-        modelBuilder.Entity<propietario>(entity =>
+        modelBuilder.Entity<Propietario>(entity =>
         {
-            entity.HasKey(e => e.dpi).HasName("PK__propieta__D87619646742879D");
+            entity.HasKey(e => e.Dpi).HasName("PK__propieta__D87619646742879D");
 
-            entity.ToTable("propietario");
+            entity.ToTable("Propietario");
 
-            entity.HasIndex(e => e.nit, "UQ__propieta__DF97D0E4D099E629").IsUnique();
+            entity.HasIndex(e => e.Nit, "UQ__propieta__DF97D0E4D099E629").IsUnique();
 
-            entity.Property(e => e.dpi).HasMaxLength(13).IsUnicode(false);
-            entity.Property(e => e.apellido).HasMaxLength(100).IsUnicode(false);
-            entity.Property(e => e.estado).HasDefaultValue(true);
-            entity.Property(e => e.nit).HasMaxLength(13).IsUnicode(false);
-            entity.Property(e => e.nombre).HasMaxLength(100).IsUnicode(false);
-            entity.Property(e => e.prefijo_pais).HasMaxLength(5).IsUnicode(false);
-            entity.Property(e => e.telefono).HasMaxLength(20).IsUnicode(false);
+            entity.Property(e => e.Dpi).HasMaxLength(13).IsUnicode(false);
+            entity.Property(e => e.Apellido).HasMaxLength(100).IsUnicode(false);
+            entity.Property(e => e.Estado).HasDefaultValue(true);
+            entity.Property(e => e.Nit).HasMaxLength(13).IsUnicode(false);
+            entity.Property(e => e.Nombre).HasMaxLength(100).IsUnicode(false);
+            entity.Property(e => e.PrefijoPais).HasMaxLength(5).IsUnicode(false);
+            entity.Property(e => e.Telefono).HasMaxLength(20).IsUnicode(false);
         });
 
-        modelBuilder.Entity<recibo_detalle>(entity =>
+        modelBuilder.Entity<ReciboDetalle>(entity =>
         {
-            entity.HasKey(e => new { e.num_rec, e.id_rubro }).HasName("pk_recibo_detalle");
+            entity.HasKey(e => new { e.NumRec, e.IdRubro }).HasName("pk_ReciboDetalle");
 
             entity.ToTable(
-                "recibo_detalle",
+                "ReciboDetalle",
                 tb =>
                 {
-                    tb.HasTrigger("trg_no_update_cuota_recibo_detalle");
-                    tb.HasTrigger("trg_set_cuota_recibo_detalle");
+                    tb.HasTrigger("trg_no_update_cuota_ReciboDetalle");
+                    tb.HasTrigger("trg_set_cuota_ReciboDetalle");
                 }
             );
 
-            entity.Property(e => e.num_rec).HasMaxLength(8).IsUnicode(false);
-            entity.Property(e => e.cuota).HasColumnType("decimal(10, 2)");
+            entity.Property(e => e.NumRec).HasMaxLength(8).IsUnicode(false);
+            entity.Property(e => e.Cuota).HasColumnType("decimal(10, 2)");
 
             entity
-                .HasOne(d => d.id_rubroNavigation)
-                .WithMany(p => p.recibo_detalles)
-                .HasForeignKey(d => d.id_rubro)
+                .HasOne(d => d.IdRubroNavigation)
+                .WithMany(p => p.ReciboDetalles)
+                .HasForeignKey(d => d.IdRubro)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__recibo_de__id_ru__5812160E");
+                .HasConstraintName("FK__recibo_de__Id_ru__5812160E");
 
             entity
-                .HasOne(d => d.num_recNavigation)
-                .WithMany(p => p.recibo_detalles)
-                .HasForeignKey(d => d.num_rec)
+                .HasOne(d => d.NumRecNavigation)
+                .WithMany(p => p.ReciboDetalles)
+                .HasForeignKey(d => d.NumRec)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__recibo_de__num_r__59063A47");
         });
 
-        modelBuilder.Entity<recibo_encabezado>(entity =>
+        modelBuilder.Entity<ReciboEncabezado>(entity =>
         {
-            entity.HasKey(e => e.num_rec).HasName("PK__recibo_e__C0853F74934AD73C");
+            entity.HasKey(e => e.NumRec).HasName("PK__recibo_e__C0853F74934AD73C");
 
-            entity.ToTable("recibo_encabezado");
+            entity.ToTable("ReciboEncabezado");
 
-            entity.Property(e => e.num_rec).HasMaxLength(8).IsUnicode(false);
-            entity.Property(e => e.dpi_propietario).HasMaxLength(13).IsUnicode(false);
-            entity.Property(e => e.fecha_recibo).HasDefaultValueSql("(getdate())");
-            entity.Property(e => e.id_propiedad).HasMaxLength(5).IsUnicode(false);
-
-            entity
-                .HasOne(d => d.dpi_propietarioNavigation)
-                .WithMany(p => p.recibo_encabezados)
-                .HasForeignKey(d => d.dpi_propietario)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__recibo_en__dpi_p__4BAC3F29");
+            entity.Property(e => e.NumRec).HasMaxLength(8).IsUnicode(false);
+            entity.Property(e => e.DpiPropietario).HasMaxLength(13).IsUnicode(false);
+            entity.Property(e => e.FechaRecibo).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.IdPropiedad).HasMaxLength(5).IsUnicode(false);
 
             entity
-                .HasOne(d => d.id_propiedadNavigation)
-                .WithMany(p => p.recibo_encabezados)
-                .HasForeignKey(d => d.id_propiedad)
+                .HasOne(d => d.DpiPropietarioNavigation)
+                .WithMany(p => p.ReciboEncabezados)
+                .HasForeignKey(d => d.DpiPropietario)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__recibo_en__id_pr__4AB81AF0");
+                .HasConstraintName("FK__recibo_en__Dpi_p__4BAC3F29");
+
+            entity
+                .HasOne(d => d.IdPropiedadNavigation)
+                .WithMany(p => p.ReciboEncabezados)
+                .HasForeignKey(d => d.IdPropiedad)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__recibo_en__Id_pr__4AB81AF0");
         });
 
-        modelBuilder.Entity<rubro>(entity =>
+        modelBuilder.Entity<Rubro>(entity =>
         {
-            entity.HasKey(e => e.id).HasName("PK__rubro__3213E83FF42E2A10");
+            entity.HasKey(e => e.Id).HasName("PK__Rubro__3213E83FF42E2A10");
 
-            entity.ToTable("rubro");
+            entity.ToTable("Rubro");
 
-            entity.HasIndex(e => e.nombre, "UQ__rubro__72AFBCC672BC12CD").IsUnique();
+            entity.HasIndex(e => e.Nombre, "UQ__Rubro__72AFBCC672BC12CD").IsUnique();
 
-            entity.Property(e => e.cuota).HasColumnType("decimal(10, 2)");
-            entity.Property(e => e.nombre).HasMaxLength(60).IsUnicode(false);
+            entity.Property(e => e.Cuota).HasColumnType("decimal(10, 2)");
+            entity.Property(e => e.Nombre).HasMaxLength(60).IsUnicode(false);
         });
         modelBuilder.HasSequence("seq_condominio").HasMin(1L).HasMax(999L);
-        modelBuilder.HasSequence("seq_propiedad").HasMin(1L).HasMax(999L);
+        modelBuilder.HasSequence("seq_Propiedad").HasMin(1L).HasMax(999L);
 
         OnModelCreatingPartial(modelBuilder);
     }

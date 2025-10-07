@@ -3,20 +3,20 @@ using System.Collections.Generic;
 
 namespace Condominium.Data.Models;
 
-public partial class propiedad
+public class Propiedad
 {
-    public string id { get; set; } = null!;
+    public string Id { get; set; } = null!;
 
-    public string direccion { get; set; } = null!;
+    public string Direccion { get; set; } = null!;
 
-    public string? avatar { get; set; }
+    public string? Avatar { get; set; }
 
-    public string id_condominio { get; set; } = null!;
+    public string IdCondominio { get; set; } = null!;
 
-    public condominio id_condominioNavigation { get; set; } = null!;
+    public Condominio IdCondominioNavigation { get; set; } = null!;
 
-    public ICollection<recibo_encabezado> recibo_encabezados { get; set; } =
-        new List<recibo_encabezado>();
+    public ICollection<ReciboEncabezado> ReciboEncabezados { get; set; } =
+        new List<ReciboEncabezado>();
 
-    public ICollection<propietario> dpi_propietarios { get; set; } = new List<propietario>();
+    public ICollection<Propietario> DpiPropietarios { get; set; } = new List<Propietario>();
 }

@@ -1,6 +1,6 @@
-namespace Condominium.Dtos;
+namespace Condominium.Dtos
 {
-  public record CondominioCreateDto(string nombre, string direccion, string image_condominio);
-  public record CondominioUpdateDto(string nombre, string direccion, string image_condominio);
-  public record CondominioReadDto(string id, string nombre, string direccion, string image_condominio, ICollection<PropiedadReadDto> propiedades);
+  public record CondominioCreateDto(string Nombre, string Direccion, string ImageCondominio);
+  public record CondominioUpdateDto(string Nombre, string Direccion, string ImageCondominio);
+  public record CondominioReadDto(string Id, string Nombre, string Direccion, string ImageCondominio, ICollection<PropiedadReadDto> Propiedades);
 }

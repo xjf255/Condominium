@@ -9,8 +9,8 @@ builder.Services.AddControllers();
 
 
 builder.Services.AddDbContext<CondoContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("CondoDb")
-            .UseLazyLoadingProxies(false)));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("CondoDb"))
+        .UseLazyLoadingProxies(false));
 
 
 builder.Services.AddEndpointsApiExplorer();

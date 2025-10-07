@@ -1,6 +1,6 @@
-namespace Condominium.Dtos;
+namespace Condominium.Dtos
 {
-  public record PropietarioCreateDto(string dpi, string nombre, string apellido,string prefijo_pais, string telefono, string nit, bool? estado);
-  public record PropietarioUpdateDto(string dpi, string nombre, string apellido,string prefijo_pais, string telefono, string nit,  bool? estado);
-  public record PropietarioReadDto(string dpi, string nombre, string apellido,string prefijo_pais, string telefono, string nit, bool? estado, ICollection<ReciboEncabezadoReadDto> recibos, ICollection<PropiedadReadDto> propiedades);
+  public record PropietarioCreateDto(string Dpi, string Nombre, string Apellido,string PrefijoPais, string Telefono, string Nit, bool? Estado);
+  public record PropietarioUpdateDto(string Dpi, string Nombre, string Apellido,string PrefijoPais, string Telefono, string Nit,  bool? Estado);
+  public record PropietarioReadDto(string Dpi, string Nombre, string Apellido,string PrefijoPais, string Telefono, string Nit, bool? Estado, ICollection<ReciboEncabezadoReadDto> Recibos, ICollection<PropiedadReadDto> Propiedades);
 }

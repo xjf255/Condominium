@@ -50,7 +50,7 @@ bld/
 *.vspscc
 *.vssscc
 .builds
-*.pidb
+*.pIdb
 *.svclog
 *.scc
 
@@ -101,7 +101,7 @@ StyleCopReport.xml
 *.vspscc
 *.vssscc
 .builds
-*.pidb
+*.pIdb
 *.svclog
 *.scc
 
@@ -116,8 +116,8 @@ _ReSharper*/
 *.[Rr]e[Ss]harper
 *.DotSettings.user
 
-# JetBrains Rider
-.idea/
+# JetBrains RIder
+.Idea/
 *.sln.iml
 
 # Azure Functions

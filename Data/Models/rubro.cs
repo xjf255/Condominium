@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace Condominium.Data.Models;
 
-public partial class rubro
+public partial class Rubro
 {
-    public int id { get; set; }
+    public int Id { get; set; }
 
-    public string nombre { get; set; } = null!;
+    public string Nombre { get; set; } = null!;
 
-    public decimal cuota { get; set; }
+    public decimal Cuota { get; set; }
 
-    public ICollection<recibo_detalle> recibo_detalles { get; set; } = new List<recibo_detalle>();
+    public ICollection<ReciboDetalle> ReciboDetalles { get; set; } = new List<ReciboDetalle>();
 }
